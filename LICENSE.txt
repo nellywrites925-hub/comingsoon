@@ -1,0 +1,52 @@
+MIT License
+
+Copyright (c) 2025 Under Construction Template
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+COMMERCIAL LICENSE TERMS
+
+This template is sold under a Commercial License that permits:
+
+✅ ALLOWED USES:
+- Use in unlimited personal and commercial projects
+- Modify, customize, and adapt the code
+- Create websites for clients using this template
+- Sell websites built with this template to end clients
+- Use in projects that generate revenue
+
+❌ PROHIBITED USES:
+- Resell or redistribute the original template files
+- Share template files with others who haven't purchased
+- Upload to free template sharing sites
+- Create derivative template products for resale
+- Claim authorship of the original design
+
+ATTRIBUTION:
+- Attribution is appreciated but not required
+- You may remove any template attribution from the final website
+
+SUPPORT & UPDATES:
+- Email support included for 6 months from purchase
+- Free updates provided for 6 months from purchase
+- Updates include bug fixes and minor feature enhancements
+
+For questions about licensing, contact: license@yoursite.com
