@@ -35,6 +35,109 @@
         color: #fff;
         padding: 2.5rem clamp(1rem, 3vw, 3rem) 4rem;
       }
+      body.fit-contain .shot img {
+        object-fit: contain;
+        background: #0d1016;
+      }
+      body.fit-cover .shot img {
+        object-fit: cover;
+      }
+      body.fit-contain .device-phone img {
+        background: #000;
+      }
+      .controls-bar {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.85rem;
+        align-items: center;
+        background: rgba(15, 17, 22, 0.85);
+        backdrop-filter: blur(8px);
+        padding: 0.85rem 1rem;
+        margin: 0 0 1.75rem;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 14px;
+        box-shadow: 0 8px 18px -6px rgba(0, 0, 0, 0.55);
+      }
+      .controls-bar label {
+        font-size: 0.65rem;
+        text-transform: uppercase;
+        letter-spacing: 0.9px;
+        font-weight: 600;
+        opacity: 0.75;
+        display: block;
+        margin-bottom: 0.25rem;
+      }
+      .controls-group {
+        display: flex;
+        flex-direction: column;
+        min-width: 110px;
+      }
+      .controls-bar select,
+      .controls-bar input[type="range"] {
+        appearance: none;
+        background: #1e2430;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: #fff;
+        padding: 0.45rem 0.6rem;
+        font: 500 0.75rem/1.2 Poppins, sans-serif;
+        border-radius: 8px;
+        min-width: 140px;
+      }
+      .controls-bar input[type="range"] {
+        padding: 0;
+        height: 34px;
+      }
+      .scale-indicator {
+        font-size: 0.7rem;
+        opacity: 0.65;
+        margin-top: 0.25rem;
+        text-align: center;
+      }
+      .shot-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      .shot-inner img {
+        transition: transform 0.35s ease, filter 0.35s ease;
+      }
+      body.scaling-active .shot-inner img {
+        will-change: transform;
+      }
+      .ratio-desktop .shot-inner {
+        aspect-ratio: 16/10;
+      }
+      .ratio-wide .shot-inner {
+        aspect-ratio: 16/9;
+      }
+      .full-span {
+        grid-column: span 2;
+      }
+      @media (max-width: 900px) {
+        .full-span {
+          grid-column: span 1;
+        }
+      }
+      .ratio-phone .shot-inner {
+        aspect-ratio: 9/19.5;
+      }
+      .device-desktop .shot-inner img {
+        height: 100%;
+        width: 100%;
+        object-fit: inherit;
+      }
+      .device-phone .shot-inner img {
+        height: 100%;
+        width: 100%;
+        object-fit: inherit;
+      }
       header {
         max-width: 1200px;
         margin: 0 auto 2.5rem;
@@ -277,12 +380,15 @@
     <main class="collage-grid">
       <!-- HIGHLIGHT / DESKTOP FEATURE SECTION -->
       <section class="tile highlight">
-        <div class="shot device-desktop">
-          <img
-            src="./raw/Desktop.JPG"
-            alt="Desktop View"
-            loading="lazy"
-          />
+        <div class="shot device-desktop ratio-desktop">
+          <div class="shot-inner">
+            <img
+              src="./raw/desktop.jpg"
+              alt="Desktop View"
+              loading="lazy"
+              data-fallback="Desktop.JPG"
+            />
+          </div>
         </div>
         <div class="info">
           <h3>Core Features</h3>
@@ -306,24 +412,30 @@
       <!-- MOBILE LARGE -->
       <section class="tile">
         <h3>Mobile - iPhone 14 Pro Max</h3>
-        <div class="shot device-phone">
-          <img
-            src="./raw/iphone19pm.JPG"
-            alt="iPhone Large"
-            loading="lazy"
-          />
+        <div class="shot device-phone ratio-phone">
+          <div class="shot-inner">
+            <img
+              src="./raw/mobile-large.jpg"
+              alt="iPhone Large"
+              loading="lazy"
+              data-fallback="iphone19pm.JPG"
+            />
+          </div>
         </div>
       </section>
 
       <!-- MOBILE SMALL -->
       <section class="tile">
         <h3>Mobile - iPhone SE</h3>
-        <div class="shot device-phone">
-          <img
-            src="./raw/iphonese.JPG"
-            alt="iPhone Small"
-            loading="lazy"
-          />
+        <div class="shot device-phone ratio-phone">
+          <div class="shot-inner">
+            <img
+              src="./raw/mobile-small.jpg"
+              alt="iPhone Small"
+              loading="lazy"
+              data-fallback="iphonese.JPG"
+            />
+          </div>
         </div>
       </section>
 
@@ -331,11 +443,14 @@
       <section class="tile">
         <h3>Contact Section</h3>
         <div class="shot">
-          <img
-            src="./raw/contact.JPG"
-            alt="Contact Section"
-            loading="lazy"
-          />
+          <div class="shot-inner">
+            <img
+              src="./raw/contact-section.jpg"
+              alt="Contact Section"
+              loading="lazy"
+              data-fallback="contact.JPG"
+            />
+          </div>
         </div>
       </section>
 
@@ -343,24 +458,64 @@
       <section class="tile">
         <h3>Development Progress</h3>
         <div class="shot">
-          <img
-            src="./raw/devprogbar.JPG"
-            alt="Progress Bars"
-            loading="lazy"
-          />
+          <div class="shot-inner">
+            <img
+              src="./raw/progress-bars.jpg"
+              alt="Progress Bars"
+              loading="lazy"
+              data-fallback="devprogbar.JPG"
+            />
+          </div>
         </div>
       </section>
 
       <!-- MOBILE COMPOSITE EXPORT AREA -->
-      <section class="tile" style="grid-column: span 2; display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.25rem;align-items:center;">
-        <h3 style="grid-column:1/-1;margin-top:0;">Mobile Composite Export Area</h3>
-        <div class="shot device-phone">
-          <img src="./raw/iphone19pm.JPG" alt="iPhone Large" loading="lazy" />
+      <section
+        class="tile"
+        style="
+          grid-column: span 2;
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+          gap: 1.25rem;
+          align-items: center;
+        "
+      >
+        <h3 style="grid-column: 1/-1; margin-top: 0">
+          Mobile Composite Export Area
+        </h3>
+        <div class="shot device-phone ratio-phone">
+          <div class="shot-inner">
+            <img
+              src="./raw/mobile-large.jpg"
+              alt="iPhone Large"
+              loading="lazy"
+              data-fallback="iphone19pm.JPG"
+            />
+          </div>
         </div>
-        <div class="shot device-phone">
-          <img src="./raw/iphonese.JPG" alt="iPhone Small" loading="lazy" />
+        <div class="shot device-phone ratio-phone">
+          <div class="shot-inner">
+            <img
+              src="./raw/mobile-small.jpg"
+              alt="iPhone Small"
+              loading="lazy"
+              data-fallback="iphonese.JPG"
+            />
+          </div>
         </div>
-        <div style="grid-column:1/-1;font-size:.75rem;opacity:.7;line-height:1.35;text-align:center;padding-top:.25rem;">Capture this entire section at a wide ratio (suggest 1600x900) for your mobile composite preview image.</div>
+        <div
+          style="
+            grid-column: 1/-1;
+            font-size: 0.75rem;
+            opacity: 0.7;
+            line-height: 1.35;
+            text-align: center;
+            padding-top: 0.25rem;
+          "
+        >
+          Capture this entire section at a wide ratio (suggest 1600x900) for
+          your mobile composite preview image.
+        </div>
       </section>
     </main>
 
@@ -370,4 +525,107 @@
       composite: 1600x900).
     </footer>
   </body>
+  <script>
+    // UI Controls for fit mode & scale
+    (function () {
+      const header = document.querySelector("header");
+      const bar = document.createElement("div");
+      bar.className = "controls-bar";
+      bar.innerHTML = `
+        <div class="controls-group">
+          <label for="fitSelect">Image Fit</label>
+          <select id="fitSelect">
+            <option value="cover" selected>Cover (Fill)</option>
+            <option value="contain">Contain (Full Image)</option>
+          </select>
+        </div>
+        <div class="controls-group">
+          <label for="scaleRange">Scale (<span id="scaleValue">100</span>%)</label>
+          <input type="range" id="scaleRange" min="60" max="140" value="100" />
+          <div class="scale-indicator">Adjust to avoid cropping</div>
+        </div>
+        <div class="controls-group" style="min-width:180px;">
+          <label>Tips</label>
+          <div style="font-size:.6rem;line-height:1.2;opacity:.65;max-width:190px;">Use Cover for marketing punch. Switch to Contain to ensure full page shows before exporting.</div>
+        </div>
+      `;
+      header.parentNode.insertBefore(bar, header.nextSibling);
+      const fitSelect = bar.querySelector("#fitSelect");
+      const scaleRange = bar.querySelector("#scaleRange");
+      const scaleValue = bar.querySelector("#scaleValue");
+      document.body.classList.add("fit-cover");
+      fitSelect.addEventListener("change", () => {
+        document.body.classList.remove("fit-cover", "fit-contain");
+        document.body.classList.add("fit-" + fitSelect.value);
+      });
+      scaleRange.addEventListener("input", () => {
+        scaleValue.textContent = scaleRange.value;
+        document.body.classList.add("scaling-active");
+        const imgs = document.querySelectorAll(".shot-inner img");
+        const s = scaleRange.value / 100;
+        imgs.forEach((i) => {
+          i.style.transform = "scale(" + s + ")";
+        });
+      });
+    })();
+    // Missing image diagnostics & fallback helper
+    (function () {
+      const imgs = [...document.querySelectorAll("img")];
+      const report = [];
+      // fallback attempt: if primary src 404s and data-fallback exists, retry
+      imgs.forEach((img) => {
+        img.addEventListener(
+          "error",
+          () => {
+            const fb = img.getAttribute("data-fallback");
+            if (fb && !img.dataset.triedFb) {
+              img.dataset.triedFb = "1";
+              const original = img.getAttribute("src");
+              // try original legacy name
+              img.setAttribute("src", "./raw/" + fb);
+              console.info(
+                "Retrying with fallback file name for",
+                original,
+                "→",
+                fb
+              );
+              return; // skip marking missing until fallback also fails
+            }
+            img.style.outline = "3px solid #ff4d4f";
+            img.style.position = "relative";
+            const note = document.createElement("div");
+            note.textContent = "Missing: " + img.getAttribute("src");
+            note.style.cssText =
+              "position:absolute;inset:6px auto auto 6px;background:#ff4d4f; color:#fff; font:600 11px/1.2 Poppins,sans-serif;padding:6px 8px;border-radius:6px;max-width:180px;box-shadow:0 4px 10px -2px rgba(0,0,0,.4);z-index:5;";
+            img.parentElement.style.position = "relative";
+            img.parentElement.appendChild(note);
+            report.push(img.getAttribute("src"));
+          },
+          { once: true }
+        );
+      });
+      window.addEventListener("load", () => {
+        if (report.length) {
+          console.group("Preview Missing Images");
+          console.warn("The following image paths did not resolve:", report);
+          console.info(
+            "Fix: Ensure files are inside preview/raw/ (not in a nested folder). Current structure includes an extra folder name. Move the JPG files up one level."
+          );
+          console.groupEnd();
+          const tip = document.createElement("div");
+          tip.innerHTML =
+            "⚠ Some screenshots are not loading.<br><strong>Fix:</strong> Move your JPG files directly into <code>preview/raw/</code> (remove any inner “coming soon demo shots” folder) or adjust the <code>src</code> paths.";
+          tip.style.cssText =
+            "position:fixed;bottom:18px;right:18px;background:#1e242f;padding:14px 16px;border:1px solid #ff4d4f;color:#fff;font:500 12.5px/1.4 Poppins,sans-serif;border-radius:10px;box-shadow:0 10px 28px -8px rgba(0,0,0,.55);max-width:280px;z-index:9999;";
+          const close = document.createElement("button");
+          close.textContent = "×";
+          close.style.cssText =
+            "position:absolute;top:4px;right:8px;background:none;border:none;color:#fff;font-size:16px;cursor:pointer;font-weight:600;";
+          close.onclick = () => tip.remove();
+          tip.appendChild(close);
+          document.body.appendChild(tip);
+        }
+      });
+    })();
+  </script>
 </html>
