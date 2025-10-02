@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Template Preview Collage</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0f1115;
+        --panel: #161a23;
+        --accent: #667eea;
+        --gradient: linear-gradient(
+          135deg,
+          #667eea 0%,
+          #764ba2 50%,
+          #f093fb 100%
+        );
+        --radius: 18px;
+        --grid-gap: 1.5rem;
+        --shadow: 0 10px 25px -8px rgba(0, 0, 0, 0.55);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Poppins", sans-serif;
+        margin: 0;
+        background: radial-gradient(circle at 20% 20%, #1d2230 0%, #0f1115 70%);
+        color: #fff;
+        padding: 2.5rem clamp(1rem, 3vw, 3rem) 4rem;
+      }
+      header {
+        max-width: 1200px;
+        margin: 0 auto 2.5rem;
+      }
+      h1 {
+        font-size: clamp(2rem, 4vw, 3.2rem);
+        margin: 0.25rem 0;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+      p.lead {
+        opacity: 0.8;
+        max-width: 880px;
+        line-height: 1.5;
+        font-size: 1.05rem;
+        margin: 0 0 1rem;
+      }
+      .badge-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.65rem;
+        margin-top: 0.5rem;
+      }
+      .badge {
+        background: rgba(255, 255, 255, 0.07);
+        padding: 0.4rem 0.85rem;
+        border-radius: 50px;
+        font-size: 0.7rem;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+
+      .collage-grid {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: grid;
+        gap: var(--grid-gap);
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        align-items: stretch;
+      }
+
+      .tile {
+        position: relative;
+        background: linear-gradient(145deg, #171d27, #0c0f14);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: var(--radius);
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+      }
+      .tile:before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          circle at 80% -10%,
+          rgba(255, 255, 255, 0.08),
+          transparent 60%
+        );
+        pointer-events: none;
+      }
+      .tile h3 {
+        margin: 0.2rem 0 0.75rem;
+        font-size: 0.95rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #dce2f5;
+      }
+      .shot {
+        position: relative;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .shot img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 12px;
+        filter: brightness(0.93) saturate(1.05);
+        box-shadow: 0 6px 16px -4px rgba(0, 0, 0, 0.6);
+      }
+
+      /* Device frames */
+      .device-phone {
+        background: #0d1016;
+        padding: 12px 10px 18px;
+        border-radius: 34px;
+        position: relative;
+        box-shadow: 0 10px 24px -8px rgba(0, 0, 0, 0.65),
+          inset 0 0 0 2px rgba(255, 255, 255, 0.08);
+      }
+      .device-phone:before {
+        content: "";
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 34%;
+        height: 10px;
+        background: #11151c;
+        border-radius: 0 0 12px 12px;
+      }
+      .device-phone img {
+        border-radius: 22px;
+        height: 460px;
+        width: auto;
+        object-fit: cover;
+      }
+
+      .device-desktop {
+        background: #0d1016;
+        padding: 14px 14px 10px;
+        border-radius: 20px 20px 14px 14px;
+        position: relative;
+        box-shadow: 0 10px 24px -8px rgba(0, 0, 0, 0.65),
+          inset 0 0 0 2px rgba(255, 255, 255, 0.08);
+      }
+      .device-desktop:before {
+        content: "";
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 70px;
+        height: 8px;
+        background: #141921;
+        border-radius: 8px;
+      }
+      .device-desktop img {
+        border-radius: 8px;
+        height: 100%;
+      }
+
+      /* Highlight tile */
+      .highlight {
+        grid-column: span 2;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        align-items: stretch;
+      }
+      .highlight .info {
+        padding: 1rem 1.25rem 1.75rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .gradient-text {
+        background: var(--gradient);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        font-weight: 700;
+      }
+
+      ul.feature-list {
+        list-style: none;
+        margin: 1rem 0 0;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 0.6rem 0.75rem;
+        font-size: 0.8rem;
+      }
+      ul.feature-list li {
+        display: flex;
+        align-items: center;
+        gap: 0.45rem;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 0.5rem 0.65rem;
+        border-radius: 8px;
+        line-height: 1.2;
+      }
+      ul.feature-list li:before {
+        content: "✔";
+        font-size: 0.7rem;
+        color: #7f9bff;
+      }
+
+      footer {
+        max-width: 1100px;
+        margin: 3.5rem auto 0;
+        padding: 1.5rem 0 2rem;
+        font-size: 0.75rem;
+        opacity: 0.65;
+        text-align: center;
+        letter-spacing: 0.5px;
+      }
+
+      @media (max-width: 980px) {
+        .highlight {
+          grid-column: span 1;
+        }
+        .device-phone img {
+          height: 380px;
+        }
+      }
+      @media (max-width: 640px) {
+        body {
+          padding: 2rem 1.25rem 3rem;
+        }
+        .badge-row {
+          gap: 0.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>
+        <span class="gradient-text">Under Construction</span> Template Preview
+      </h1>
+      <p class="lead">
+        Use these arranged screenshots to export your marketplace preview images
+        (desktop, mobile, features & marketing composites). Replace placeholder
+        file names with your real screenshots.
+      </p>
+      <div class="badge-row">
+        <span class="badge">Bootstrap 5</span>
+        <span class="badge">Responsive</span>
+        <span class="badge">Countdown</span>
+        <span class="badge">Email Capture</span>
+        <span class="badge">Animations</span>
+        <span class="badge">SEO Ready</span>
+      </div>
+    </header>
+
+    <main class="collage-grid">
+      <!-- HIGHLIGHT / DESKTOP FEATURE SECTION -->
+      <section class="tile highlight">
+        <div class="shot device-desktop">
+          <img
+            src="./raw/Desktop.JPG"
+            alt="Desktop View"
+            loading="lazy"
+          />
+        </div>
+        <div class="info">
+          <h3>Core Features</h3>
+          <ul class="feature-list">
+            <li>Real-time Countdown Timer</li>
+            <li>Animated Particle Background</li>
+            <li>Email Subscription Form</li>
+            <li>Progress Indicators</li>
+            <li>Accessible Markup</li>
+            <li>SEO Optimized</li>
+            <li>Mobile First Layout</li>
+            <li>Social Links Ready</li>
+            <li>Google Fonts (Poppins)</li>
+            <li>Bootstrap 5 Grid</li>
+            <li>Lazy Loaded Assets</li>
+            <li>Clean, Commented Code</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- MOBILE LARGE -->
+      <section class="tile">
+        <h3>Mobile - iPhone 14 Pro Max</h3>
+        <div class="shot device-phone">
+          <img
+            src="./raw/iphone19pm.JPG"
+            alt="iPhone Large"
+            loading="lazy"
+          />
+        </div>
+      </section>
+
+      <!-- MOBILE SMALL -->
+      <section class="tile">
+        <h3>Mobile - iPhone SE</h3>
+        <div class="shot device-phone">
+          <img
+            src="./raw/iphonese.JPG"
+            alt="iPhone Small"
+            loading="lazy"
+          />
+        </div>
+      </section>
+
+      <!-- CONTACT SECTION -->
+      <section class="tile">
+        <h3>Contact Section</h3>
+        <div class="shot">
+          <img
+            src="./raw/contact.JPG"
+            alt="Contact Section"
+            loading="lazy"
+          />
+        </div>
+      </section>
+
+      <!-- PROGRESS SECTION -->
+      <section class="tile">
+        <h3>Development Progress</h3>
+        <div class="shot">
+          <img
+            src="./raw/devprogbar.JPG"
+            alt="Progress Bars"
+            loading="lazy"
+          />
+        </div>
+      </section>
+
+      <!-- MOBILE COMPOSITE EXPORT AREA -->
+      <section class="tile" style="grid-column: span 2; display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.25rem;align-items:center;">
+        <h3 style="grid-column:1/-1;margin-top:0;">Mobile Composite Export Area</h3>
+        <div class="shot device-phone">
+          <img src="./raw/iphone19pm.JPG" alt="iPhone Large" loading="lazy" />
+        </div>
+        <div class="shot device-phone">
+          <img src="./raw/iphonese.JPG" alt="iPhone Small" loading="lazy" />
+        </div>
+        <div style="grid-column:1/-1;font-size:.75rem;opacity:.7;line-height:1.35;text-align:center;padding-top:.25rem;">Capture this entire section at a wide ratio (suggest 1600x900) for your mobile composite preview image.</div>
+      </section>
+    </main>
+
+    <footer>
+      Generated Preview Layout • Replace file paths then capture at target
+      dimensions (ThemeForest main: 1160x870, features: 1160x580, mobile
+      composite: 1600x900).
+    </footer>
+  </body>
+</html>
