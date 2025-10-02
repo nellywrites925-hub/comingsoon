@@ -171,6 +171,32 @@ Perfect for agencies, developers, and entrepreneurs!
 5. **Mobile + Desktop Views** - Show responsiveness
 6. **Brand Consistently** - Use same colors/style
 
+### 🧩 New Automated Preview Workspace
+
+You now have a `preview/` folder scaffold inside `template-package/`:
+
+```
+template-package/
+    preview/
+        index.html          # Collage layout & feature highlight board
+        README_PREVIEW.md   # Export instructions & dimensions
+```
+
+Open `preview/index.html` in your browser, replace the `REPLACE_WITH` image paths with your actual screenshots (Desktop.JPG, iphone19pm.JPG, etc.), then take clean sectional captures for each required marketplace asset. Follow the workflow in `README_PREVIEW.md` to crop and optimize.
+
+Recommended export set (ThemeForest baseline):
+
+| Asset            | File                 | Dimension | Source Section                 |
+| ---------------- | -------------------- | --------- | ------------------------------ |
+| Main Preview     | preview-main.jpg     | 1160x870  | Highlight (desktop + features) |
+| Features Panel   | preview-features.jpg | 1160x580  | Highlight feature list focus   |
+| Mobile Composite | preview-mobile.jpg   | 1600x900  | Two phone frames tiles         |
+| Contact Section  | preview-contact.jpg  | 1160x580  | Contact tile                   |
+| Progress Section | preview-progress.jpg | 1160x580  | Development progress tile      |
+| Thumbnail        | thumbnail.jpg        | 200x200   | Gradient + logo/text           |
+
+Optimize all images (Squoosh/TinyPNG) to keep sizes low and crisp.
+
 ---
 
 ## 📈 **Marketing & Sales Tips**

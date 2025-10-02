@@ -86,6 +86,34 @@
         border-radius: 8px;
         min-width: 140px;
       }
+      .controls-bar input[type="number"] {
+        appearance: textfield;
+        background: #1e2430;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: #fff;
+        padding: 0.35rem 0.4rem;
+        font: 500 0.65rem/1.1 Poppins, sans-serif;
+        border-radius: 6px;
+        width: 72px;
+      }
+      .controls-bar button.small-btn {
+        background: var(--accent);
+        border: none;
+        color: #fff;
+        font: 600 0.6rem/1 Poppins, sans-serif;
+        padding: 0.45rem 0.65rem;
+        border-radius: 6px;
+        cursor: pointer;
+        letter-spacing: 0.5px;
+        box-shadow: 0 4px 10px -3px rgba(0, 0, 0, 0.5);
+        transition: background 0.25s ease, opacity 0.25s ease;
+      }
+      .controls-bar button.small-btn:is(:hover, :focus) {
+        background: #5466d5;
+      }
+      .controls-bar button.small-btn:active {
+        opacity: 0.7;
+      }
       .controls-bar input[type="range"] {
         padding: 0;
         height: 34px;
@@ -230,6 +258,119 @@
         border-radius: 12px;
         filter: brightness(0.93) saturate(1.05);
         box-shadow: 0 6px 16px -4px rgba(0, 0, 0, 0.6);
+      }
+      /* Active tile highlight for per-image scaling */
+      .tile.active-scale {
+        outline: 2px solid var(--accent);
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.35), var(--shadow);
+      }
+      .tile.active-scale .shot-inner img {
+        filter: brightness(1) saturate(1.08);
+      }
+
+      /* Floating per-image scale panel */
+      .local-scale-panel {
+        position: fixed;
+        bottom: 18px;
+        left: 18px;
+        background: rgba(20, 24, 32, 0.92);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 0.75rem 0.9rem 0.85rem;
+        border-radius: 14px;
+        font: 500 0.65rem/1.2 Poppins, sans-serif;
+        color: #dfe6fb;
+        width: 240px;
+        z-index: 1200;
+        box-shadow: 0 10px 28px -10px rgba(0, 0, 0, 0.65);
+        display: none;
+      }
+      .local-scale-panel header {
+        font: 600 0.6rem/1.2 Poppins, sans-serif;
+        letter-spacing: 0.75px;
+        text-transform: uppercase;
+        opacity: 0.75;
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .local-scale-panel input[type="range"] {
+        width: 100%;
+        margin: 4px 0 2px;
+      }
+      .local-scale-panel .close-btn {
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 14px;
+        cursor: pointer;
+        font-weight: 600;
+        opacity: 0.6;
+      }
+      .local-scale-panel .close-btn:hover {
+        opacity: 1;
+      }
+      .local-scale-panel .actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 4px;
+      }
+      .local-scale-panel .reset-btn {
+        background: #2a3140;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: #fff;
+        font: 600 0.55rem/1 Poppins, sans-serif;
+        padding: 4px 6px;
+        border-radius: 6px;
+        cursor: pointer;
+        letter-spacing: 0.5px;
+      }
+      .local-scale-panel .reset-btn:hover {
+        background: #364152;
+      }
+
+      /* Export overlay */
+      #exportOverlay {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: 2px dashed rgba(255, 255, 255, 0.75);
+        border-radius: 10px;
+        background: rgba(102, 126, 234, 0.05);
+        box-shadow: 0 0 0 120vmax rgba(15, 17, 22, 0.55);
+        display: none;
+        z-index: 1100;
+        cursor: move;
+      }
+      #exportOverlay .dim-label {
+        position: absolute;
+        top: 4px;
+        left: 50%;
+        transform: translateX(-50%);
+        font: 600 11px/1.1 Poppins, sans-serif;
+        letter-spacing: 0.5px;
+        background: rgba(15, 17, 22, 0.85);
+        padding: 4px 8px 5px;
+        border-radius: 20px;
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        pointer-events: none;
+      }
+      body.overlay-active #exportOverlay {
+        display: block;
+      }
+      .overlay-locked #exportOverlay {
+        cursor: default;
+      }
+      .controls-bar .inline-note {
+        font-size: 0.55rem;
+        opacity: 0.55;
+        line-height: 1.2;
+        margin-top: 4px;
+        max-width: 160px;
       }
 
       /* Device frames */
@@ -524,6 +665,47 @@
       dimensions (ThemeForest main: 1160x870, features: 1160x580, mobile
       composite: 1600x900).
     </footer>
+    <div id="exportOverlay"><div class="dim-label"></div></div>
+    <div
+      class="local-scale-panel"
+      id="localScalePanel"
+      role="dialog"
+      aria-label="Per Image Scaling"
+    >
+      <header>
+        <span>Per-Image Scale</span>
+        <button class="close-btn" title="Close" aria-label="Close">×</button>
+      </header>
+      <div
+        style="
+          font-size: 0.6rem;
+          opacity: 0.7;
+          line-height: 1.25;
+          margin-bottom: 4px;
+        "
+      >
+        Adjust just the selected tile without affecting others. Multiplies with
+        global scale.
+      </div>
+      <label
+        style="
+          font-size: 0.55rem;
+          text-transform: uppercase;
+          letter-spacing: 0.6px;
+          opacity: 0.65;
+          display: block;
+          margin-bottom: 2px;
+        "
+        >Local Scale <span id="localScaleValue">100</span>%</label
+      >
+      <input type="range" min="50" max="160" value="100" id="localScaleRange" />
+      <div class="actions">
+        <button class="reset-btn" type="button">Reset</button>
+        <div style="font-size: 0.5rem; opacity: 0.55; text-align: right">
+          ESC to clear
+        </div>
+      </div>
+    </div>
   </body>
   <script>
     // UI Controls for fit mode & scale
@@ -545,6 +727,23 @@
           <div class="scale-indicator">Adjust to avoid cropping</div>
         </div>
         <div class="controls-group" style="min-width:180px;">
+          <label for="overlayPreset">Export Overlay</label>
+          <select id="overlayPreset">
+            <option value="">None</option>
+            <option value="1160x580">1160x580 (Features)</option>
+            <option value="1160x870">1160x870 (Main)</option>
+            <option value="1600x900">1600x900 (Composite)</option>
+            <option value="custom">Custom…</option>
+          </select>
+          <div class="custom-size" style="display:none; margin-top:6px; display:flex; gap:6px; align-items:center; flex-wrap:wrap;">
+            <input type="number" id="customW" placeholder="W" min="200" />
+            <input type="number" id="customH" placeholder="H" min="200" />
+            <button type="button" class="small-btn" id="applyCustom">Set</button>
+            <button type="button" class="small-btn" id="centerOverlay" title="Center Overlay">Center</button>
+          </div>
+          <div class="inline-note">Use for precise capture guides. Drag to position; Center to re-align.</div>
+        </div>
+        <div class="controls-group" style="min-width:180px;">
           <label>Tips</label>
           <div style="font-size:.6rem;line-height:1.2;opacity:.65;max-width:190px;">Use Cover for marketing punch. Switch to Contain to ensure full page shows before exporting.</div>
         </div>
@@ -553,20 +752,109 @@
       const fitSelect = bar.querySelector("#fitSelect");
       const scaleRange = bar.querySelector("#scaleRange");
       const scaleValue = bar.querySelector("#scaleValue");
+      const overlayPreset = bar.querySelector("#overlayPreset");
+      const customBox = bar.querySelector(".custom-size");
+      const customW = bar.querySelector("#customW");
+      const customH = bar.querySelector("#customH");
+      const applyCustom = bar.querySelector("#applyCustom");
+      const centerOverlayBtn = bar.querySelector("#centerOverlay");
+      const overlayEl = document.getElementById("exportOverlay");
+      const dimLabel = overlayEl.querySelector(".dim-label");
+
+      function setOverlaySize(w, h) {
+        overlayEl.style.width = w + "px";
+        overlayEl.style.height = h + "px";
+        dimLabel.textContent = w + " x " + h;
+      }
+
+      function activateOverlay(w, h) {
+        setOverlaySize(w, h);
+        document.body.classList.add("overlay-active");
+        // recenters
+        overlayEl.style.top = "50%";
+        overlayEl.style.left = "50%";
+        overlayEl.style.transform = "translate(-50%, -50%)";
+      }
+
+      overlayPreset.addEventListener("change", () => {
+        const val = overlayPreset.value;
+        if (!val) {
+          document.body.classList.remove("overlay-active");
+          customBox.style.display = "none";
+          return;
+        }
+        if (val === "custom") {
+          customBox.style.display = "flex";
+          customW.focus();
+          return;
+        }
+        customBox.style.display = "none";
+        const [w, h] = val.split("x").map(Number);
+        activateOverlay(w, h);
+      });
+
+      applyCustom.addEventListener("click", () => {
+        const w = parseInt(customW.value, 10);
+        const h = parseInt(customH.value, 10);
+        if (w && h) activateOverlay(w, h);
+      });
+      centerOverlayBtn.addEventListener("click", () => {
+        overlayEl.style.top = "50%";
+        overlayEl.style.left = "50%";
+        overlayEl.style.transform = "translate(-50%, -50%)";
+      });
+
+      // Drag logic
+      (function () {
+        let dragging = false,
+          startX = 0,
+          startY = 0,
+          startLeft = 0,
+          startTop = 0;
+        overlayEl.addEventListener("mousedown", (e) => {
+          dragging = true;
+          overlayEl.classList.add("dragging");
+          startX = e.clientX;
+          startY = e.clientY;
+          // remove translate if centered
+          const rect = overlayEl.getBoundingClientRect();
+          startLeft = rect.left;
+          startTop = rect.top;
+          overlayEl.style.transform = "none";
+          e.preventDefault();
+        });
+        window.addEventListener("mousemove", (e) => {
+          if (!dragging) return;
+          const dx = e.clientX - startX;
+          const dy = e.clientY - startY;
+          overlayEl.style.left = startLeft + dx + "px";
+          overlayEl.style.top = startTop + dy + "px";
+        });
+        window.addEventListener("mouseup", () => {
+          dragging = false;
+          overlayEl.classList.remove("dragging");
+        });
+      })();
+
       document.body.classList.add("fit-cover");
       fitSelect.addEventListener("change", () => {
         document.body.classList.remove("fit-cover", "fit-contain");
         document.body.classList.add("fit-" + fitSelect.value);
       });
+      // central transform update
+      function updateTransforms() {
+        const g = parseFloat(scaleRange.value) / 100;
+        document.querySelectorAll(".shot-inner img").forEach((img) => {
+          const local = parseFloat(img.dataset.localScale || "1");
+          img.style.transform = "scale(" + g * local + ")";
+        });
+      }
       scaleRange.addEventListener("input", () => {
         scaleValue.textContent = scaleRange.value;
         document.body.classList.add("scaling-active");
-        const imgs = document.querySelectorAll(".shot-inner img");
-        const s = scaleRange.value / 100;
-        imgs.forEach((i) => {
-          i.style.transform = "scale(" + s + ")";
-        });
+        updateTransforms();
       });
+      window.__updateTransforms = updateTransforms; // debug hook
     })();
     // Missing image diagnostics & fallback helper
     (function () {
@@ -624,6 +912,80 @@
           close.onclick = () => tip.remove();
           tip.appendChild(close);
           document.body.appendChild(tip);
+        }
+      });
+    })();
+    // Per-image scaling logic
+    (function () {
+      const panel = document.getElementById("localScalePanel");
+      const range = document.getElementById("localScaleRange");
+      const valueEl = document.getElementById("localScaleValue");
+      const closeBtn = panel.querySelector(".close-btn");
+      const resetBtn = panel.querySelector(".reset-btn");
+      let activeTile = null;
+
+      function openPanel(tile) {
+        panel.style.display = "block";
+        activeTile = tile;
+        document
+          .querySelectorAll(".tile.active-scale")
+          .forEach((t) => t.classList.remove("active-scale"));
+        tile.classList.add("active-scale");
+        const img = tile.querySelector(".shot-inner img");
+        const local = parseFloat(img?.dataset.localScale || "1");
+        range.value = Math.round(local * 100);
+        valueEl.textContent = Math.round(local * 100);
+      }
+      function closePanel() {
+        panel.style.display = "none";
+        if (activeTile) activeTile.classList.remove("active-scale");
+        activeTile = null;
+      }
+      function updateLocal() {
+        if (!activeTile) return;
+        const img = activeTile.querySelector(".shot-inner img");
+        if (!img) return;
+        const local = parseInt(range.value, 10) / 100;
+        img.dataset.localScale = local;
+        valueEl.textContent = Math.round(local * 100);
+        // recompute transforms with global
+        if (window.__updateTransforms) window.__updateTransforms();
+      }
+      range.addEventListener("input", updateLocal);
+      closeBtn.addEventListener("click", closePanel);
+      resetBtn.addEventListener("click", () => {
+        if (!activeTile) return;
+        const img = activeTile.querySelector(".shot-inner img");
+        if (img) {
+          delete img.dataset.localScale;
+          range.value = 100;
+          valueEl.textContent = "100";
+          if (window.__updateTransforms) window.__updateTransforms();
+        }
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closePanel();
+      });
+      // Activate on tile click
+      document.querySelectorAll(".tile").forEach((tile) => {
+        tile.addEventListener("click", (e) => {
+          // ignore clicks inside panel injection or controls bar
+          if (
+            e.target.closest(".controls-bar") ||
+            e.target.closest("#exportOverlay")
+          )
+            return;
+          openPanel(tile);
+        });
+      });
+      // Outside click to close (avoid closing when clicking inside tile itself)
+      document.addEventListener("click", (e) => {
+        if (
+          !panel.contains(e.target) &&
+          !e.target.closest(".tile") &&
+          activeTile
+        ) {
+          closePanel();
         }
       });
     })();
